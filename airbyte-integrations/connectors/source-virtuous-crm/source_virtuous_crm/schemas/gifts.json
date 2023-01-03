@@ -67,7 +67,7 @@
       "type": ["null", "string"]
     },
     "grantUrl": {
-      "type": ["null", "integer"]
+      "type": ["null", "string"]
     },
     "notes": {
       "type": ["null", "string"]
