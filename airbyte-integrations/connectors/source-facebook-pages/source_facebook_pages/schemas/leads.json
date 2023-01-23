@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "created_time":  {
+      "type": ["string", "null"],
+      "format": "datetime"
+    },
+    "id": {
+      "type": ["string"]
+    },
+    "ad_id": {
+      "type": ["string", "null"]
+    },
+    "form_id": {
+      "type": ["string", "null"]
+    },
+    "field_data": {
+      "type": ["array", "null"],
+      "items": {
+        "type": ["object", "null"],
+        "properties": {
+          "name": {
+            "type": ["string", "null"]
+          },
+          "values": {
+            "type": ["array", "null"],
+            "items": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

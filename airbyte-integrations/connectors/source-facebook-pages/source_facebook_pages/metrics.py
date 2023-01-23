@@ -250,7 +250,6 @@ PAGE_FIELDS = ",".join(
         "likes",
         "live_videos",
         "locations",
-        "nativeoffers",
         "page_backed_instagram_accounts",
         "photos",
         "posts",
@@ -329,5 +328,37 @@ POST_FIELDS = ",".join(
         "sharedposts",
         "sponsor_tags",
         "to",
+    ]
+)
+
+
+LEADGEN_FORMS_FIELDS = ",".join(
+    [
+        "id",
+        "allow_organic_lead_retrieval",
+        "block_display_for_non_targeted_viewer",
+        "context_card",
+        "cover_photo",
+        "custom_disclaimer",
+        "follow_up_action_url",
+        "is_for_canvas",
+        "is_optimized_for_quality",
+        "locale",
+        "name",
+        "privacy_policy",
+        "question_page_custom_headline",
+        "questions",
+        "thank_you_page",
+        "tracking_parameters"
+    ]
+)
+
+LEAD_FIELDS = ",".join(
+    [
+        "id",
+        "created_time",
+        "ad_id",
+        "form_id",
+        "field_data"
     ]
 )

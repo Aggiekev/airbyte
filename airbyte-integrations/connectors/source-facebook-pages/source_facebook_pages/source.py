@@ -11,7 +11,7 @@ from airbyte_cdk.models import SyncMode
 from airbyte_cdk.sources import AbstractSource
 from airbyte_cdk.sources.streams import Stream
 
-from .streams import Page, PageInsights, Post, PostInsights
+from .streams import Page, PageInsights, Post, PostInsights, LeadgenForms, Leads
 
 
 class SourceFacebookPages(AbstractSource):
@@ -53,5 +53,7 @@ class SourceFacebookPages(AbstractSource):
             Page(**stream_kwargs),
             PostInsights(**stream_kwargs),
             PageInsights(**stream_kwargs),
+            LeadgenForms(**stream_kwargs),
+            Leads(**stream_kwargs),
         ]
         return streams

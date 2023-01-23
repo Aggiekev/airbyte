@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["string", "null"]
+    },
+    "allow_organic_lead_retrieval": {
+      "type": ["boolean", "null"]
+    },
+    "block_display_for_non_targeted_viewer": {
+      "type": ["boolean", "null"]
+    },
+    "context_card": {
+      "type": ["object", "null"],
+      "properties": {
+        "title": {
+          "type": ["string", "null"]
+        },
+        "style": {
+          "type": ["string", "null"]
+        },
+        "content": {
+          "type": ["array", "null"],
+          "items": {
+            "type": ["string", "null"]
+          }
+        },
+        "button_text": {
+          "type": ["string", "null"]
+        },
+        "cover_photo_id": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "cover_photo": {
+      "type": ["string", "null"]
+    },
+    "custom_disclaimer": {
+      "type": ["object", "null"],
+      "properties": {
+        "title": {
+          "type": ["string", "null"]
+        },
+        "body": {
+          "type": ["object", "null"],
+          "properties": {
+            "text": {
+              "type": ["string", "null"]
+            },
+            "url_entities": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        },
+        "checkboxes": {
+          "type": ["array", "null"],
+          "items": {
+            "type": ["object", "null"],
+            "properties": {
+              "is_required": {
+                "type": ["boolean", "null"]
+              },
+              "is_checked_by_default": {
+                "type": ["boolean", "null"]
+              },
+              "text": {
+                "type": ["string", "null"]
+              },
+              "key": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "follow_up_action_url": {
+      "type": ["string", "null"]
+    },
+    "is_for_canvas": {
+      "type": ["boolean", "null"]
+    },
+    "is_optimized_for_quality": {
+      "type": ["boolean", "null"]
+    },
+    "locale": {
+      "type": ["string", "null"]
+    },
+    "name": {
+      "type": ["string", "null"]
+    },
+    "privacy_policy": {
+      "type": ["object", "null"],
+      "properties": {
+        "url": {
+          "type": ["string", "null"]
+        },
+        "link_text": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "question_page_custom_headline": {
+      "type": ["string", "null"]
+    },
+    "questions": {
+      "type": ["array", "null"],
+      "items": {
+        "type": ["object", "null"],
+        "properties": {
+          "key": {
+            "type": ["string", "null"]
+          },
+          "label": {
+            "type": ["string", "null"]
+          },
+          "type": {
+            "type": ["string", "null"]
+          },
+          "inline_context": {
+            "type": ["string", "null"]
+          },
+          "options": {
+            "type": ["array", "null"],
+            "items": {
+              "type": ["string", "null"]
+            }
+          },
+          "dependent_conditional_questions": {
+            "type": ["array", "null"],
+            "items": {
+              "type": ["string", "null"]
+            }
+          },
+          "conditional_questions_group_id": {
+            "type": ["integer", "null"]
+          }
+        }
+      }
+    },
+    "thank_you_page": {
+      "type": ["object", "null"],
+      "properties": {
+        "title": {
+          "type": ["string", "null"]
+        },
+        "body": {
+          "type": ["string", "null"]
+        },
+        "short_message": {
+          "type": ["string", "null"]
+        },
+        "button_text": {
+          "type": ["string", "null"]
+        },
+        "button_description": {
+          "type": ["string", "null"]
+        },
+        "business_phone_number": {
+          "type": ["string", "null"]
+        },
+        "enable_messenger": {
+          "type": ["boolean", "null"]
+        },
+        "website_url": {
+          "type": ["string", "null"]
+        },
+        "button_type": {
+          "type": ["string", "null"]
+        },
+        "country_code": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "tracking_parameters": {
+      "type": ["string", "null"]
+    }
+  }
+}
