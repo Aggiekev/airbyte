@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from airbyte_cdk.sources.streams.http import HttpStream
 from airbyte_cdk.sources.streams import IncrementalMixin
 from airbyte_cdk.sources.utils.transform import TransformConfig, TypeTransformer
-from source_facebook_pages.metrics import PAGE_FIELDS, PAGE_METRICS, POST_FIELDS, POST_METRICS, LEADGEN_FORMS_FIELDS, LEAD_FIELDS
+from source_facebook_pages.metrics import PAGE_FIELDS, LEADGEN_FORMS_FIELDS, LEAD_FIELDS
 
 
 class FacebookPagesStream(HttpStream, ABC):
@@ -86,76 +86,6 @@ class Page(FacebookPagesStream):
         params["fields"] = PAGE_FIELDS
 
         return params
-
-
-class Post(FacebookPagesStream):
-    """
-    https://developers.facebook.com/docs/graph-api/reference/v11.0/page/feed,
-    """
-
-    def path(self, **kwargs) -> str:
-        return f"{self._page_id}/posts"
-
-    def request_params(self, **kwargs) -> MutableMapping[str, Any]:
-        params = super().request_params(**kwargs)
-        params["fields"] = POST_FIELDS
-
-        return params
-
-
-class PageInsights(FacebookPagesStream):
-    """
-    API docs: https://developers.facebook.com/docs/graph-api/reference/page/insights/,
-    """
-
-    def path(self, **kwargs) -> str:
-        return f"{self._page_id}/insights"
-
-    def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
-        return None
-
-    def request_params(
-        self,
-        stream_state: Mapping[str, Any],
-        stream_slice: Mapping[str, any] = None,
-        next_page_token: Mapping[str, Any] = None,
-    ) -> MutableMapping[str, Any]:
-        params = super().request_params(stream_state, stream_slice, next_page_token)
-        params["metric"] = ",".join(PAGE_METRICS)
-
-        return params
-
-
-class PostInsights(FacebookPagesStream):
-    """
-    API docs: https://developers.facebook.com/docs/graph-api/reference/post/insights/,
-    """
-
-    def path(self, **kwargs) -> str:
-        return f"{self._page_id}/posts"
-
-    def request_params(
-        self,
-        stream_state: Mapping[str, Any],
-        stream_slice: Mapping[str, any] = None,
-        next_page_token: Mapping[str, Any] = None,
-    ) -> MutableMapping[str, Any]:
-        params = super().request_params(stream_state, stream_slice, next_page_token)
-        params["fields"] = f'insights.metric({",".join(POST_METRICS)})'
-
-        return params
-
-    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
-        # unique case so we override this method
-        records = response.json().get(self.data_field) or []
-
-        for insights in records:
-            if insights.get("insights"):
-                data = insights.get("insights").get("data")
-                for insight in data:
-                    yield insight
-            else:
-                yield insights
 
 class LeadgenForms(FacebookPagesStream):
     """
