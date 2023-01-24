@@ -147,8 +147,6 @@ class Leads(FacebookPagesStream, IncrementalMixin):
     def read_records(self, *args, **kwargs) -> Iterable[Mapping[str, Any]]:
         for record in super().read_records(*args, **kwargs):
             date = record[self.cursor_field]
-            #Remove the +0000 so it can be saved as a proper date
-            record[self.cursor_field] = date.split("+")[0]
             if self._cursor_value:
                 self._cursor_value = max(self._cursor_value, date)
             else:

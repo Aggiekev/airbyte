@@ -3,8 +3,7 @@
   "type": "object",
   "properties": {
     "created_time":  {
-      "type": ["string", "null"],
-      "format": "datetime"
+      "type": ["string", "null"]
     },
     "id": {
       "type": ["string"]

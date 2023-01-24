@@ -241,7 +241,7 @@
     },
     "leadgen_tos_acceptance_time": {
       "type": ["string", "null"],
-      "format": "datetime"
+      "format": "date-time"
     },
     "leadgen_tos_accepted": {
       "type": ["boolean", "null"]
@@ -1719,6 +1719,39 @@
         }
       }
     },
+    "nativeoffers": {
+      "type": ["object", "null"],
+      "properties": {
+        "data": {
+          "type": ["array", "null"],
+          "items": {
+            "$ref": "nativeoffer.json"
+          }
+        },
+        "paging": {
+          "type": ["object", "null"],
+          "properties": {
+            "previous": {
+              "type": ["string", "null"]
+            },
+            "next": {
+              "type": ["string", "null"]
+            },
+            "cursors": {
+              "type": "object",
+              "properties": {
+                "before": {
+                  "type": ["string", "null"]
+                },
+                "after": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "page_backed_instagram_accounts": {
       "type": ["object", "null"],
       "properties": {
@@ -2419,39 +2452,6 @@
           "type": ["array", "null"],
           "items": {
             "$ref": "advideo.json"
-          }
-        },
-        "paging": {
-          "type": ["object", "null"],
-          "properties": {
-            "previous": {
-              "type": ["string", "null"]
-            },
-            "next": {
-              "type": ["string", "null"]
-            },
-            "cursors": {
-              "type": "object",
-              "properties": {
-                "before": {
-                  "type": ["string", "null"]
-                },
-                "after": {
-                  "type": ["string", "null"]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "visitor_posts": {
-      "type": ["object", "null"],
-      "properties": {
-        "data": {
-          "type": ["array", "null"],
-          "items": {
-            "$ref": "pagepost.json"
           }
         },
         "paging": {
