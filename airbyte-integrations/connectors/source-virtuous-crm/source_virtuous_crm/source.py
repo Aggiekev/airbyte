@@ -152,7 +152,7 @@ class IncrementalVirtuousCrmStream(VirtuousCrmStream, IncrementalMixin):
 
 class Gifts(IncrementalVirtuousCrmStream):
 
-    cursor_field = "giftDate"
+    cursor_field = "modifiedDateTimeUtc"
     start_date = ""
 
     def path(
@@ -167,7 +167,7 @@ class Gifts(IncrementalVirtuousCrmStream):
                 "descending": False,
                 "groups" : [{
                     "conditions": [{
-                        "parameter": "Gift Date",
+                        "parameter": "Last Modified Date",
                         "operator": "GreaterThanOrEqual",
                         "value": self.start_date
                     }]
@@ -180,6 +180,19 @@ class Gifts(IncrementalVirtuousCrmStream):
             }
     def read_records(self, *args, **kwargs) -> Iterable[Mapping[str, Any]]:
         for record in super().read_records(*args, **kwargs):
+
+            #Modify the dates to remove the weird ones with a period after them
+            if record["giftDate"] is not None:
+                record["giftDate"] = record["giftDate"].split(".", 1)[0]
+            if record["receiptDate"] is not None:
+                record["receiptDate"] = record["receiptDate"].split(".", 1)[0]      
+            if record["createDateTimeUtc"] is not None:
+                record["createDateTimeUtc"] = record["createDateTimeUtc"].split(".", 1)[0] 
+            if record["modifiedDateTimeUtc"] is not None:
+                record["modifiedDateTimeUtc"] = record["modifiedDateTimeUtc"].split(".", 1)[0]        
+
+                    
+
             gift_date = record[self.cursor_field]
             if self._cursor_value:
                 self._cursor_value = max(self._cursor_value, gift_date)
@@ -189,14 +202,15 @@ class Gifts(IncrementalVirtuousCrmStream):
 
     @property
     def state(self) -> Mapping[str, Any]:
-        return {self.cursor_field: self._cursor_value}
+        #Take off 1 days just to be safe
+        cursor_date_time = datetime.strptime(self._cursor_value.split(".", 1)[0], "%Y-%m-%dT%H:%M:%S") - timedelta(days=1)
+        return {self.cursor_field: cursor_date_time.strftime("%Y-%m-%dT%H:%M:%S")}
     
     @state.setter
     def state(self, value: Mapping[str, Any]):
+        #Update the start_date and the cursor_value
         if self.cursor_field in value and value[self.cursor_field]:
-            #To ensure the date is less than the most recent record, just reduce by one day
-            cursor_date_time = datetime.strptime(value[self.cursor_field], "%Y-%m-%dT%H:%M:%S") - timedelta(days=60)
-            self._cursor_value = cursor_date_time.strftime("%Y-%m-%dT%H:%M:%S")
+            self._cursor_value = value[self.cursor_field]
             self.start_date = self._cursor_value
 
 

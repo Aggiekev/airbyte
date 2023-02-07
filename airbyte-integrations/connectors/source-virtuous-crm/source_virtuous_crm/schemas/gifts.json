@@ -12,7 +12,15 @@
       "type": ["null", "string"]
     },
     "contactId": {
-      "type": "integer"
+      "type": ["null", "integer"]
+    },
+    "modifiedDateTimeUtc": {
+      "type":  ["null", "string"],
+      "format": "date-time"
+    },
+    "createDateTimeUtc": {
+      "type":  ["null", "string"],
+      "format": "date-time"
     },
     "contactName": {
       "type": ["null", "string"]
@@ -31,13 +39,13 @@
       "format": "date-time"
     },
     "giftDateFormatted": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "amount": {
       "type":  "number"
     },
     "amountFormatted": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "batch": {
       "type": ["null", "string"]
@@ -85,8 +93,7 @@
       "type": ["null", "integer"]
     },
     "receiptDate": {
-      "type":  ["null", "string"],
-      "format": "date-time"
+      "type":  ["null", "string"]
     },
     "receiptDateFormatted": {
       "type": ["null", "string"]
@@ -116,7 +123,7 @@
         "type": ["object", "null"],
         "properties": {
           "id": {
-            "type": "integer"
+            "type": ["integer", "null"]
           },
           "projectId": {
             "type": ["null", "integer"]
@@ -140,7 +147,7 @@
             "type": ["null", "string"]
           },
           "amountDesignated": {
-            "type": "number"
+            "type": ["number", "null"]
           },
           "display": {
             "type": ["null", "string"]
@@ -155,7 +162,7 @@
         "type": ["object", "null"],
         "properties": {
           "id": {
-            "type": "integer"
+            "type": ["integer", "null"]
           },
           "premiumId": {
             "type": ["null", "integer"]
@@ -182,11 +189,10 @@
         "type": ["object", "null"],
         "properties": {
           "id": {
-            "type": "integer"
+            "type": ["integer", "null"]
           },
           "expectedPaymentDate": {
-            "type": ["null", "string"],
-            "format": "date-time"
+            "type": ["null", "string"]
           },
           "expectedAmount": {
             "type": ["null", "number"]
@@ -207,14 +213,14 @@
         "type": ["object", "null"],
         "properties": {
           "id": {
-            "type": "integer"
+            "type": ["integer", "null"]
           },
 
           "gift": {
 		        "type": ["object", "null"],
 		        "properties": {
 		          "id": {
-		            "type": "integer"
+		            "type": ["integer", "null"]
 		          },
 		          "contactId": {
 		            "type": ["integer", "null"]
@@ -224,7 +230,7 @@
 		            "format": "date-time"
 		          },
 		          "amount": {
-		            "type":  "number"
+		            "type": ["null", "number"]
 		          }
 		        }
 		      },
@@ -233,16 +239,13 @@
             "type": ["null", "number"]
           },
           "expectedPaymentDate": {
-            "type": ["null", "string"],
-            "format": "date-time"
+            "type": ["null", "string"]
           },
           "dismissPaymentDate": {
-            "type": ["null", "string"],
-            "format": "date-time"
+            "type": ["null", "string"]
           },
           "fulfillPaymentDate": {
-            "type": ["null", "string"],
-            "format": "date-time"
+            "type": ["null", "string"]
           }
         }
       }
@@ -263,7 +266,7 @@
         "type": ["object", "null"],
         "properties": {
           "name": {
-            "type": "string"
+            "type": ["null", "string"]
           },
           "value": {
             "type": ["null", "string"]
@@ -277,3 +280,5 @@
 
   }
 }
+
+

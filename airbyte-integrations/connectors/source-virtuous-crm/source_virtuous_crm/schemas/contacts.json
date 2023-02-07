@@ -196,12 +196,6 @@
 			        }
 			      }
 			    },
-			    "createDateTimeUtc": {
-			      "type":  "string"
-			    },
-			    "modifiedDateTimeUtc": {
-			      "type":  ["null", "string"]
-			    },
 			    "customFields": {
 			      "type": ["array", "null"],
 			      "items": {
