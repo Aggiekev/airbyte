@@ -28,6 +28,9 @@
     "contactUrl": {
       "type": ["null", "string"]
     },
+    "creditCardType": {
+      "type": ["null", "string"]
+    },
     "giftType": {
       "type": ["null", "string"]
     },
@@ -265,6 +268,9 @@
       "items": {
         "type": ["object", "null"],
         "properties": {
+          "dataType": {
+            "type": ["null", "string"]
+          },
           "name": {
             "type": ["null", "string"]
           },

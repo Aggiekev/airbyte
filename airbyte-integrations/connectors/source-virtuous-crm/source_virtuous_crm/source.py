@@ -152,6 +152,8 @@ class IncrementalVirtuousCrmStream(VirtuousCrmStream, IncrementalMixin):
 
 class Gifts(IncrementalVirtuousCrmStream):
 
+    #Gift ID = 804011 is missing
+    #{"type": "RECORD", "record": {"stream": "gifts", "data": {"creditCardType": "Visa", "id": 804011, "transactionSource": "iDonate", "transactionId": "a083a056-8200-45de-b792-4f9df83b4670", "contactId": 203894, "contactName": "Mr. Roberto Bolli", "contactUrl": "/api/Contact/203894", "giftType": "Credit", "giftTypeFormatted": "Credit", "giftDate": "2022-12-11T00:00:00", "giftDateFormatted": "12/11/2022", "amount": 5000.0, "amountFormatted": "$5,000.00", "currencyCode": "USD", "exchangeRate": 1.0, "baseCurrencyCode": "USD", "batch": "iDonate 2022-12-11", "createDateTimeUtc": "2022-12-12T16:55:59", "createdByUser": "Pat Umphlet", "modifiedDateTimeUtc": "2023-01-23T23:41:41", "modifiedByUser": "Sara Davis", "segmentId": null, "segment": null, "segmentCode": null, "segmentUrl": null, "mediaOutletId": null, "mediaOutlet": null, "grantId": null, "grant": null, "grantUrl": null, "notes": null, "tribute": null, "tributeId": null, "tributeType": null, "acknowledgeeIndividualId": null, "receiptDate": "2023-01-23T00:00:00", "receiptDateFormatted": "1/23/2023", "contactPassthroughId": null, "contactPassthroughUrl": null, "contactIndividualId": 231186, "cashAccountingCode": null, "giftAskId": null, "contactMembershipId": null, "giftDesignations": [{"id": 803033, "projectId": 1596, "project": "Lottie Moon Christmas Offering", "projectCode": "F9LMCO", "externalAccountingCode": "Lottie Moon Christmas Offering", "projectType": "Unspecified", "projectLocation": "AGXXX \u2013 no affinity group", "projectUrl": "/api/Project/1596", "amountDesignated": 5000.0, "display": "Lottie Moon Christmas Offering: $5,000.00"}], "giftPremiums": [], "pledgePayments": [], "recurringGiftPayments": [], "giftUrl": "/api/Gift/804011", "isPrivate": false, "isTaxDeductible": true, "customFields": [{"dataType": "Text", "name": "Missionary EID", "value": "None", "displayName": null}, {"dataType": "Link", "name": "Online Donation URL", "value": "https://www.imb.org/generosity/lottie-moon-christmas-offering/#giving-widgetblock_632372e49f5b3", "displayName": null}, {"dataType": "Text", "name": "Tribute Card Recipient - State", "value": "KY", "displayName": null}, {"dataType": "Text", "name": "Tribute Card Recipient Notification", "value": "True", "displayName": null}, {"dataType": "Text", "name": "Tribute Gift From", "value": "Roberto Bolli", "displayName": null}, {"dataType": "Text", "name": "Tribute Honoree First Name", "value": "Robi", "displayName": null}, {"dataType": "Text", "name": "Tribute Honoree Last Name", "value": "Bolli", "displayName": null}, {"dataType": "List", "name": "Tribute Occasion", "value": "Other", "displayName": null}, {"dataType": "Text", "name": "Tribute Recipient Email Address", "value": "roberto.bolli01@outlook.com", "displayName": null}, {"dataType": "Text", "name": "Tribute Recipient First Name", "value": "Robi", "displayName": null}, {"dataType": "Text", "name": "Tribute Recipient Last Name", "value": "Bolli", "displayName": null}]}, "emitted_at": 1675958181602}}
     cursor_field = "modifiedDateTimeUtc"
     start_date = ""
 
@@ -178,6 +180,7 @@ class Gifts(IncrementalVirtuousCrmStream):
                 "sortBy": self.cursor_field,
                 "descending": False
             }
+
     def read_records(self, *args, **kwargs) -> Iterable[Mapping[str, Any]]:
         for record in super().read_records(*args, **kwargs):
 
@@ -191,13 +194,11 @@ class Gifts(IncrementalVirtuousCrmStream):
             if record["modifiedDateTimeUtc"] is not None:
                 record["modifiedDateTimeUtc"] = record["modifiedDateTimeUtc"].split(".", 1)[0]        
 
-                    
-
-            gift_date = record[self.cursor_field]
+            modified_date = record[self.cursor_field]
             if self._cursor_value:
-                self._cursor_value = max(self._cursor_value, gift_date)
+                self._cursor_value = max(self._cursor_value, modified_date)
             else:
-                self._cursor_value = gift_date
+                self._cursor_value = modified_date
             yield record
 
     @property

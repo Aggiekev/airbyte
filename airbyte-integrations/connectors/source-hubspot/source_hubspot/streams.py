@@ -474,7 +474,7 @@ class Stream(HttpStream, ABC):
         try:
             casted_value = target_type(field_value)
         except ValueError:
-            logger.exception(f"Could not cast `{field_value}` to `{target_type}`")
+            logger.info(f"Could not cast `{field_value}` to `{target_type}` in `{field_name}`")
             return field_value
 
         return casted_value
@@ -498,6 +498,9 @@ class Stream(HttpStream, ABC):
             if not isinstance(declared_field_types, Iterable):
                 declared_field_types = [declared_field_types]
             format = properties[field_name].get("format")
+
+            logger.info(f" `Value: {field_value}` Type: `{declared_field_types}` Field Name: `{field_name}`")
+
             record["properties"][field_name] = self._cast_value(
                 declared_field_types=declared_field_types, field_name=field_name, field_value=field_value, declared_format=format
             )
@@ -879,7 +882,7 @@ class CRMSearchStream(IncrementalStream, ABC):
         properties_list = list(self.properties.keys())
         payload = (
             {
-                "filters": [{"value": int(self._state.timestamp() * 1000), "propertyName": self.last_modified_field, "operator": "GTE"}],
+                "filters": [{"value": "nosduh21@gmail.com", "propertyName": "email", "operator": "EQ"}],
                 "sorts": [{"propertyName": self.last_modified_field, "direction": "ASCENDING"}],
                 "properties": properties_list,
                 "limit": 100,
