@@ -164,20 +164,22 @@ class Gifts(IncrementalVirtuousCrmStream):
 
     def request_body_json(self, **kwargs) -> Optional[Mapping]:
         if self.start_date != "":
+
+            start = datetime.strptime(self.start_date, "%Y-%m-%dT%H:%M:%S")
             return { 
-                "sortBy": self.cursor_field,
+                "sortBy": "Id",
                 "descending": False,
                 "groups" : [{
                     "conditions": [{
                         "parameter": "Last Modified Date",
                         "operator": "GreaterThanOrEqual",
-                        "value": self.start_date
+                        "value": start.strftime("%m/%d/%Y")
                     }]
                 }]
             }
         else:
             return { 
-                "sortBy": self.cursor_field,
+                "sortBy": "Id",
                 "descending": False
             }
 
